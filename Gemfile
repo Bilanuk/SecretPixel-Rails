@@ -7,6 +7,11 @@ ruby "3.0.2"
 
 gem "dotenv-rails"
 
+gem "devise"
+gem "devise-jwt"
+gem "pry"
+gem "rack-cors"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 
