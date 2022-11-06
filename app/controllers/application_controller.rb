@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session, if: proc {|c| c.request.format == "application/json" }
   before_action :configure_permitted_parameters, if: :devise_controller?
+
+  #for now we disable csrf token
+  protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token
 
   protected
 
