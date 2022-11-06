@@ -6,5 +6,5 @@ class User < ApplicationRecord
          :registerable,
          jwt_revocation_strategy: JwtDenylist
 
-  validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}
+  validates :email, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
 end
