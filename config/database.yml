@@ -49,6 +49,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: KnSound_Rails_production
   username: KnSound_Rails
   password: <%= ENV["KNSOUND_RAILS_DATABASE_PASSWORD"] %>
