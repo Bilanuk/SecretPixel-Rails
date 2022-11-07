@@ -51,11 +51,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_094259) do
   end
 
   create_table "tracks", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.string "description"
     t.string "author"
-    t.integer "likes"
-    t.integer "author_id"
+    t.integer "likes", default: 0, null: false
+    t.integer "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
