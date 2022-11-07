@@ -27,7 +27,6 @@
 
 /public/assets
 
-/Gemfile.lock
 /log
 
 # Ignore master key for decrypting credentials and more.
