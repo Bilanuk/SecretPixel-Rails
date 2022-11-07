@@ -50,10 +50,7 @@ module Users
                       end
 
       if authenticated && resource = warden.user(resource_name)
-        render json: {
-          message: "You are already logged in.",
-          user: current_user
-        }, status: :ok
+        render json: {message: "You are already logged in."}, status: :ok
       end
     end
   end

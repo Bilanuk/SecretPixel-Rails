@@ -16,7 +16,6 @@ module Users
       if resource.persisted?
         if resource.active_for_authentication?
           sign_up(resource_name, resource)
-          binding.pry
           render json: {message: "Signed up sucessfully."}, status: :ok
         else
           expire_data_after_sign_in!
@@ -25,7 +24,10 @@ module Users
       else
         clean_up_passwords resource
         set_minimum_password_length
-        respond_with resource
+        render json: {
+          "message": "Registration failed",
+          "errors": resource.errors
+        }, status: :bad_request
       end
     end
 
@@ -41,8 +43,20 @@ module Users
       else
         clean_up_passwords resource
         set_minimum_password_length
-        respond_with resource
+        render json: {
+          "message": "Update failed",
+          "errors": resource.errors
+        }, status: :bad_request
       end
+    end
+
+    def destroy
+      if resource.destroy
+        Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+        return render json: {"message": "User destroyed"}, status: :ok
+      end
+
+      render json: {"message": "Something went wrong"}, status: :unprocessable_entity
     end
   end
 end
