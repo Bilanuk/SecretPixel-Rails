@@ -7,14 +7,14 @@ ruby "3.1.2"
 
 gem "dotenv-rails"
 
-gem 'pg'
+gem "pg"
 
+gem "active_storage_validations"
+gem "api_guard"
+gem "aws-sdk-s3"
 gem "devise"
-gem "devise-jwt"
 gem "pry"
 gem "rack-cors"
-gem 'aws-sdk-s3'
-gem 'active_storage_validations'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"

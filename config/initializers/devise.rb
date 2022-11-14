@@ -35,10 +35,6 @@ Devise.setup do |config|
 
   # ==> JWT configuration
 
-  config.jwt do |jwt|
-    jwt.secret = ENV["RAILS_SECRET_KEY"]
-  end
-
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
