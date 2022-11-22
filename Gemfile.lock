@@ -1,3 +1,9 @@
+PATH
+  remote: ../api_guard
+  specs:
+    api_guard (0.6.0)
+      jwt (~> 2.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -73,8 +79,6 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
-    api_guard (0.6.0)
-      jwt (~> 2.2)
     ast (2.4.2)
     aws-eventstream (1.2.0)
     aws-partitions (1.656.0)
@@ -279,7 +283,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_storage_validations
-  api_guard
+  api_guard!
   aws-sdk-s3
   bootsnap
   capybara

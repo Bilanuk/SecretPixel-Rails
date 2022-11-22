@@ -10,7 +10,7 @@ gem "dotenv-rails"
 gem "pg"
 
 gem "active_storage_validations"
-gem "api_guard"
+gem "api_guard", path: "../api_guard"
 gem "aws-sdk-s3"
 gem "devise"
 gem "pry"

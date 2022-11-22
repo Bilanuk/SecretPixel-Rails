@@ -3,7 +3,8 @@
 ApiGuard.setup do |config|
   # Validity of the JWT access token
   # Default: 1 day
-  config.token_validity = 1.hour
+  config.token_validity = ENV["TOKEN_VALIDITY"].to_i || 1.hour
+  config.enable_tokens_in_cookies = true
 
   # Secret key for signing (encoding & decoding) the JWT access token
   # Default: 'secret_key_base' from Rails secrets
