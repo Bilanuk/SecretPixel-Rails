@@ -2,12 +2,18 @@
 
 class User < ApplicationRecord
   devise :database_authenticatable,
-         :jwt_authenticatable,
-         :registerable,
-         jwt_revocation_strategy: JwtDenylist
-
-  has_many :tracks
+         :registerable
 
   validates :email, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
-  validates :username, presence: true, length: { minimum: 3, maximum: 25 }, format: { with: /\A[a-zA-Z0-9]+\z/}
+  validates :username, presence: true, length: {minimum: 3, maximum: 25}, format: {with: /\A[a-zA-Z0-9]+\z/}
+
+  api_guard_associations refresh_token: "refresh_tokens", blacklisted_token: "blacklisted_tokens"
+
+  has_many :refresh_tokens, dependent: :delete_all
+  has_many :blacklisted_tokens, dependent: :delete_all
+  has_many :tracks
+
+  def authenticate(password)
+    valid_password?(password)
+  end
 end
