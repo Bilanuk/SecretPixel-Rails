@@ -1,5 +1,6 @@
-PATH
-  remote: ../api_guard
+GIT
+  remote: https://github.com/Bilanuk/api_guard
+  revision: b66920d06970b8bca28ad513a0b52028654cf652
   specs:
     api_guard (0.6.0)
       jwt (~> 2.2)
