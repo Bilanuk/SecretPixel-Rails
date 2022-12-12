@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :refresh_tokens, dependent: :delete_all
   has_many :blacklisted_tokens, dependent: :delete_all
   has_many :tracks
+  has_many :playlists
 
   def authenticate(password)
     valid_password?(password)

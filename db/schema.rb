@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_152537) do
+ActiveRecord::Schema[7.0].define(version: 6) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_152537) do
     t.index ["user_id"], name: "index_blacklisted_tokens_on_user_id"
   end
 
+  create_table "playlists", force: :cascade do |t|
+    t.string "title", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_playlists_on_user_id"
+  end
+
   create_table "refresh_tokens", force: :cascade do |t|
     t.string "token"
     t.bigint "user_id", null: false
@@ -63,12 +71,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_152537) do
 
   create_table "tracks", force: :cascade do |t|
     t.string "title", null: false
-    t.string "description"
-    t.string "author"
-    t.integer "likes", default: 0, null: false
-    t.integer "author_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "playlist_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["playlist_id"], name: "index_tracks_on_playlist_id"
+    t.index ["user_id"], name: "index_tracks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -87,5 +95,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_152537) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "blacklisted_tokens", "users"
+  add_foreign_key "playlists", "users"
   add_foreign_key "refresh_tokens", "users"
+  add_foreign_key "tracks", "playlists"
+  add_foreign_key "tracks", "users"
 end

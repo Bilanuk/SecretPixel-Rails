@@ -11,6 +11,9 @@ Rails.application.routes.draw do
       }
     end
 
+    get '/playlist/:id', to: "playlists#show"
+    get '/playlists', to: "playlists#index"
+
     get "/user-info", to: "users#show" # just for test purpose
   end
 end

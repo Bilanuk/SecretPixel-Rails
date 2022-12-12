@@ -10,11 +10,12 @@ gem "dotenv-rails"
 gem "pg"
 
 gem "active_storage_validations"
-gem "api_guard", git: 'https://github.com/Bilanuk/api_guard'
+gem "api_guard", git: 'https://github.com/Bilanuk/api_guard', branch: "master"
 gem "aws-sdk-s3"
 gem "devise"
 gem "pry"
 gem "rack-cors"
+gem 'active_model_serializers'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"

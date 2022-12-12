@@ -9,8 +9,18 @@
 
 User.destroy_all
 Track.destroy_all
+Playlist.destroy_all
 
 user = User.where(email: "test@mail.com", username: "username").first_or_create(email: "test@mail.com", username: "username", password: "password", password_confirmation: "password")
-track = Track.where(author_id: user.id).first_or_initialize(user: user, title: "track")
+track = Track.where(user_id: user.id).first_or_initialize(author: user, title: "track")
+track.track.attach(io: File.open('public/track.mp3'), filename: 'track.mp3', content_type: 'audio/mp3')
+track.save
+
+playlist = Playlist.create(title: "Test playlists", author: user)
+track = Track.create(author: user, playlist: playlist, title: "track2")
+track.track.attach(io: File.open('public/track.mp3'), filename: 'track.mp3', content_type: 'audio/mp3')
+track.save
+
+track = Track.create(author: user, playlist: playlist, title: "track3")
 track.track.attach(io: File.open('public/track.mp3'), filename: 'track.mp3', content_type: 'audio/mp3')
 track.save
