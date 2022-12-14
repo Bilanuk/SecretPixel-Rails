@@ -11,6 +11,6 @@ module Playlists
     end
 
     belongs_to :author
-    has_many :tracks
+    has_many :tracks, serializer: Tracks::ShowSerializer
   end
 end

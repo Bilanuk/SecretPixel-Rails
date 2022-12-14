@@ -16,11 +16,21 @@ track = Track.where(user_id: user.id).first_or_initialize(author: user, title: "
 track.track.attach(io: File.open('public/track.mp3'), filename: 'track.mp3', content_type: 'audio/mp3')
 track.save
 
-playlist = Playlist.create(title: "Test playlists", author: user)
+#First playlist with songs
+playlist = Playlist.create(title: "First playlist", author: user)
 track = Track.create(author: user, playlist: playlist, title: "track2")
 track.track.attach(io: File.open('public/track.mp3'), filename: 'track.mp3', content_type: 'audio/mp3')
 track.save
-
 track = Track.create(author: user, playlist: playlist, title: "track3")
 track.track.attach(io: File.open('public/track.mp3'), filename: 'track.mp3', content_type: 'audio/mp3')
 track.save
+
+#Second playlist with songs
+playlist = Playlist.create(title: "Second playlist", author: user)
+track = Track.create(author: user, playlist: playlist, title: "track3")
+track.track.attach(io: File.open('public/track.mp3'), filename: 'track.mp3', content_type: 'audio/mp3')
+track.save
+track = Track.create(author: user, playlist: playlist, title: "track4")
+track.track.attach(io: File.open('public/track.mp3'), filename: 'track.mp3', content_type: 'audio/mp3')
+track.save
+

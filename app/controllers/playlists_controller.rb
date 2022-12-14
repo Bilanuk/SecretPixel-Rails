@@ -4,7 +4,7 @@ class PlaylistsController < ApplicationController
   # before_action :authenticate_and_set_user
 
   def index
-    render json: Playlist.all, each_serializer: Playlists::IndexSerializer
+    render json: Playlist.all, each_serializer: Playlists::ShowSerializer
   end
 
   def show
