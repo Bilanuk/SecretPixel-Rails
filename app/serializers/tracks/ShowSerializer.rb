@@ -7,13 +7,13 @@ module Tracks
     def image_url
       return object&.image_cover&.url if Rails.env == 'production'
 
-      polymorphic_url(object.image_cover, host: "localhost:3000")
+      polymorphic_url(object&.active_image_cover, host: "localhost:3000")
     end
 
     def track_url
       return object&.track&.url if Rails.env == 'production'
 
-      polymorphic_url(object.track, host: "localhost:3000")
+      polymorphic_url(object&.track, host: "localhost:3000")
     end
 
     belongs_to :playlist

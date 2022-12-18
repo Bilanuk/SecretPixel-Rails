@@ -2,7 +2,7 @@ module Playlists
   class ShowSerializer < ActiveModel::Serializer
     include Rails.application.routes.url_helpers
 
-    attributes :id, :title, :image_url
+    attributes :id, :title, :image_url, :author
 
     def image_url
       return object&.image_cover&.url if Rails.env == 'production'
