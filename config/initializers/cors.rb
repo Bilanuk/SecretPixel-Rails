@@ -17,4 +17,15 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     #          methods: %i[get post put patch delete options head],
     #          expose: %w[Access-Token Refresh-Token]
   end
+
+  allow do
+    origins "https://knsound-react.herokuapp.com/"
+
+    resource "*",
+             headers: :any,
+             same_site: :none,
+             methods: %i[get post put patch delete options head],
+             credentials: true
+
+  end
 end
