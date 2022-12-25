@@ -16,6 +16,7 @@ gem "devise"
 gem "pry"
 gem "rack-cors"
 gem 'active_model_serializers'
+gem 'rails_same_site_cookie'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
