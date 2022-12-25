@@ -9,17 +9,10 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
              same_site: :none,
              methods: %i[get post put patch delete options head],
              credentials: true
-
-    # origins "*"
-    #
-    # resource "*",
-    #          headers: :any,
-    #          methods: %i[get post put patch delete options head],
-    #          expose: %w[Access-Token Refresh-Token]
   end
 
   allow do
-    origins "https://knsound-react.herokuapp.com/"
+    origins "https://knsound.netlify.app/"
 
     resource "*",
              headers: :any,
