@@ -5,7 +5,7 @@ module Tracks
     attributes :id, :title, :image_url, :track_url, :author, :created_at, :updated_at
 
     def image_url
-      return object&.image_cover&.url if Rails.env == 'production'
+      return object&.active_image_cover&.url if Rails.env == 'production'
 
       polymorphic_url(object&.active_image_cover, host: "localhost:3000")
     end
