@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   before_action :authenticate_and_set_user, only: [:show]
 
   def show
-    render json: current_user, serializer: UserSerializer, status: :ok
+    render json: {
+      data: current_user
+    }, status: :ok
   end
 end
