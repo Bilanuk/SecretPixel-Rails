@@ -45,6 +45,15 @@ class ImagesController < ApplicationController
     end
   end
 
+  def generate_dependent_bmp
+    image = current_user.images.find(params[:id])
+    color_dependency = params[:color_dependency]
+
+    result = BmpCreationService.generate_dependent_bmp(image, color_dependency)
+
+    render json: result, status: :ok
+  end
+
   private
 
   def image_params
