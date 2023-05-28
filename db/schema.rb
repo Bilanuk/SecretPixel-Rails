@@ -53,6 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_104839) do
 
   create_table "images", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.string "name", default: "image.bmp", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_images_on_user_id"
@@ -88,8 +89,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_104839) do
   end
 
   create_table "settings", force: :cascade do |t|
-    t.string "color", default: "RED_BLUE", null: false
-    t.string "method", default: "KOCH_SNOWFLAKE", null: false
+    t.string "color", default: "NA", null: false
+    t.string "method", default: "NA", null: false
     t.bigint "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
