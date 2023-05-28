@@ -11,11 +11,9 @@ Rails.application.routes.draw do
       }
     end
 
-    resources :users, only: [:show] do
       resource :setting, only: [:show]
       resources :messages, only: [:show]
-      resources :images, only: [:show]
-    end
+      resources :images, only: [:show, :index]
 
     get "/user-info", to: "users#show" # just for test purpose
   end

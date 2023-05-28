@@ -1,9 +1,8 @@
 class ImageSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :image_url
+  attributes :id, :image_url, :setting
  
-  has_one :setting
   has_one :sent_message, serializer: MessageSerializer
   has_one :received_message, serializer: MessageSerializer
 
@@ -11,5 +10,9 @@ class ImageSerializer < ActiveModel::Serializer
     return object&.file&.url if Rails.env == 'production'
 
     polymorphic_url(object&.file, host: "localhost:3000")
+  end
+
+  def setting
+    object.setting
   end
 end
