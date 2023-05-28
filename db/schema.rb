@@ -62,7 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_104839) do
     t.string "content"
     t.string "message_type"
     t.bigint "user_id", null: false
-    t.bigint "image_id", null: false
+    t.bigint "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["image_id"], name: "index_messages_on_image_id"
