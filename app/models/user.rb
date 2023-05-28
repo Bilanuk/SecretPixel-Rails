@@ -11,9 +11,8 @@ class User < ApplicationRecord
 
   has_many :refresh_tokens, dependent: :delete_all
   has_many :blacklisted_tokens, dependent: :delete_all
-  has_one :setting, dependent: :delete
-  accepts_nested_attributes_for :setting
   has_many :images, dependent: :delete_all
+  has_many :settings, through: :images
   has_many :sent_messages, -> { sent }, class_name: 'Message', dependent: :delete_all
   has_many :received_messages, -> { received }, class_name: 'Message', dependent: :delete_all
 

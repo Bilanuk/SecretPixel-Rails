@@ -90,12 +90,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_104839) do
   create_table "settings", force: :cascade do |t|
     t.string "color", default: "RED_BLUE", null: false
     t.string "method", default: "KOCH_SNOWFLAKE", null: false
-    t.bigint "user_id", null: false
     t.bigint "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["image_id"], name: "index_settings_on_image_id"
-    t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
   create_table "tracks", force: :cascade do |t|
@@ -130,7 +128,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_104839) do
   add_foreign_key "playlists", "users"
   add_foreign_key "refresh_tokens", "users"
   add_foreign_key "settings", "images"
-  add_foreign_key "settings", "users"
   add_foreign_key "tracks", "playlists"
   add_foreign_key "tracks", "users"
 end

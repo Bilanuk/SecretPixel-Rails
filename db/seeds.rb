@@ -5,11 +5,11 @@ user = User.create(email: "romanbilanuk@gmail.com", username: "BiLaNuK", passwor
 # Add images
 image1 = user.images.create
 image1.file.attach(io: File.open("./public/moon.png"), filename: "moon.png")
+setting1 = image1.create_setting(color: "red_blue", method: "snowflake")
+
 image2 = user.images.create
 image2.file.attach(io: File.open("./public/moon.png"), filename: "moon.png")
-
-# Add setting
-setting = user.create_setting(color: "red_blue", method: "snowflake")
+setting2 = image2.create_setting(color: "green_yellow", method: "carpet")
 
 # Add sent messages
 sent_message1 = user.sent_messages.create(content: "Sent message 1", message_type: "sent")

@@ -3,7 +3,6 @@ class CreateSettings < ActiveRecord::Migration[7.0]
     create_table :settings do |t|
       t.string :color, default: 'RED_BLUE', null: false
       t.string :method, default: 'KOCH_SNOWFLAKE', null: false
-      t.references :user, null: false, foreign_key: true
       t.references :image, foreign_key: true
 
       t.timestamps
