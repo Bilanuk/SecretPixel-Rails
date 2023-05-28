@@ -14,8 +14,8 @@ class User < ApplicationRecord
   has_one :setting, dependent: :delete
   accepts_nested_attributes_for :setting
   has_many :images, dependent: :delete_all
-  has_many :sent_messages, -> { where(message_type: 'sent') }, class_name: 'Message', dependent: :delete_all
-  has_many :received_messages, -> { where(message_type: 'received') }, class_name: 'Message', dependent: :delete_all
+  has_many :sent_messages, -> { sent }, class_name: 'Message', dependent: :delete_all
+  has_many :received_messages, -> { received }, class_name: 'Message', dependent: :delete_all
 
   def authenticate(password)
     valid_password?(password)
