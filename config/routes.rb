@@ -11,12 +11,12 @@ Rails.application.routes.draw do
       }
     end
 
-    get '/playlist/:id', to: "playlists#show"
-    get '/playlists', to: "playlists#index"
-    get '/recent-playlists', to: "playlists#get_recent_playlists_by_date"
-    get '/recomended-playlists', to: "playlists#get_recomended_playlists"
+    resources :users, only: [:show] do
+      resource :setting, only: [:show]
+      resources :messages, only: [:show]
+      resources :images, only: [:show]
+    end
 
     get "/user-info", to: "users#show" # just for test purpose
-    post "/playlist", to: "playlists#create"
   end
 end
