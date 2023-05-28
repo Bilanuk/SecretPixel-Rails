@@ -13,17 +13,17 @@ user = User.create(email: "romanbilanuk@gmail.com", username: "BiLaNuK", passwor
 
 # Add images
 image1 = user.images.create
-image1.image.attach(io: open("https://example.com/image.jpg"), filename: "image.jpg")
+image1.file.attach(io: File.open("./public/moon.png"), filename: "moon.png")
 image2 = user.images.create
-image2.image.attach(io: open("https://example.com/image.jpg"), filename: "image.jpg")
+image2.file.attach(io: File.open("./public/moon.png"), filename: "moon.png")
 
 # Add setting
 setting = user.create_setting(color: "red_blue", method: "snowflake")
 
 # Add sent messages
-sent_message1 = user.sent_messages.create(content: "Sent message 1", type: "sent")
-sent_message2 = user.sent_messages.create(content: "Sent message 2", type: "sent")
+sent_message1 = user.sent_messages.create(content: "Sent message 1", message_type: "sent")
+sent_message2 = user.sent_messages.create(content: "Sent message 2", message_type: "sent")
 
 # Add received messages
-received_message1 = user.received_messages.create(content: "Received message 1", type: "received")
-received_message2 = user.received_messages.create(content: "Received message 2", type: "received")
+received_message1 = user.received_messages.create(content: "Received message 1", message_type: "received")
+received_message2 = user.received_messages.create(content: "Received message 2", message_type: "received")

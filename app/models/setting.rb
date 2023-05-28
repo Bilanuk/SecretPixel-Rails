@@ -1,5 +1,6 @@
 class Setting < ApplicationRecord
   belongs_to :user
+  belongs_to :image, optional: true
 
   enum color: {
     red_blue: 'RED_BLUE',
