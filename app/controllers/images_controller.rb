@@ -38,6 +38,7 @@ class ImagesController < ApplicationController
     message = MessageService.extract_message(image)
 
     if message
+      Message.create(content: message, message_type: :received, user: current_user)
       render json: { message: message }, status: :ok
     else
       render json: { error: "No message found" }, status: :not_found

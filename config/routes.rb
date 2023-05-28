@@ -13,8 +13,9 @@ Rails.application.routes.draw do
 
       resource :setting, only: [:show]
       resources :messages, only: [:show]
-      resources :images, only: [:show, :index, :create, :update, :read_message]
+      resources :images, only: [:show, :index, :create, :update]
 
     get "/user-info", to: "users#show" # just for test purpose
+    get "/images/:id/read_message", to: "images#read_message"
   end
 end

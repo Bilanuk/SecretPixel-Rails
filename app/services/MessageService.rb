@@ -1,21 +1,33 @@
 # app/services/message_service.rb
 class MessageService
   def self.extract_message(image)
-    # Get the pixel data from the image
     pixels = image.file.download
     return nil unless pixels
-
-    # Extract the message from the pixel data
+  
     message = ''
+    binary_message = ''
+    binary_index = 0
+  
     pixels.each_byte do |byte|
-      message += (byte & 1).to_s
+      # Extract the least significant bit from the byte
+      bit = byte & 1
+      binary_message += bit.to_s
+  
+      binary_index += 1
+  
+      # Check if we have enough bits to form a complete character
+      if binary_index % 8 == 0
+        # Convert the binary message to ASCII string
+        extracted_char = binary_to_ascii(binary_message)
+        break if extracted_char == "\0" # Stop if null character is encountered
+        message += extracted_char
+        binary_message = ''
+      end
     end
-
-    # Convert the binary message to ASCII string
-    extracted_message = binary_to_ascii(message)
-
-    extracted_message
+  
+    message
   end
+  
 
   def self.embed_message(image, message)
     # Convert the message to binary string
