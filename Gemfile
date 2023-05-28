@@ -13,7 +13,7 @@ gem "active_storage_validations"
 gem "api_guard", git: 'https://github.com/Bilanuk/api_guard', branch: "master"
 gem "aws-sdk-s3"
 gem "devise"
-gem "pry"
+gem "pry-byebug"
 gem "rack-cors"
 gem 'active_model_serializers'
 gem 'rails_same_site_cookie'
