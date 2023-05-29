@@ -5,13 +5,7 @@ user = User.create(email: "romanbilanuk@gmail.com", username: "BiLaNuK", passwor
 
 # Add images
 image1 = user.images.create(name: "Image 1")
-image1.file.attach(io: File.open("./public/moon.bmp"), filename: "moon.bmp")
+image1.file.attach(io: File.open("./public/placeholder.bmp"), filename: "placeholder.bmp")
 
 image2 = user.images.create(name: "Image 2")
-image2.file.attach(io: File.open("./public/stairs.bmp"), filename: "stairs.bmp")
-
-image3 = user.images.create(name: "Image 3")
-image3.file.attach(io: File.open("./public/wall.bmp"), filename: "wall.bmp")
-
-image4 = user.images.create(name: "Image 4")
-image4.file.attach(io: File.open("./public/moon.bmp"), filename: "moon.bmp")
+image2.file.attach(io: File.open("./public/nature.bmp"), filename: "placeholder.bmp")

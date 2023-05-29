@@ -52,29 +52,90 @@ class BmpCreationService
     center_x = width / 2
     center_y = height / 2
   
-    # Calculate the distance from the current pixel to the center of the snowflake
-    distance = Math.sqrt((x - center_x)**2 + (y - center_y)**2)
+    # Define the number of points in the snowflake (e.g., 6 for a Star of David)
+    num_points = 6
   
-    # Define the radius of the snowflake shape
-    radius = width / 4
+    # Calculate the angle between each point in radians
+    angle = (2 * Math::PI) / num_points
   
-    if distance < radius
-      # Pixel is within the snowflake shape
-      # Return a specific color value (e.g., white)
-      return 255
-    else
-      # Pixel is outside the snowflake shape
-      # Return a different color value (e.g., black)
-      return 0
+    # Define the size of the outer radius of the snowflake shape
+    outer_radius = width / 4
+  
+    # Define the size of the inner radius of the snowflake shape
+    inner_radius = outer_radius / 2
+  
+    # Iterate through each point of the snowflake
+    num_points.times do |i|
+      # Calculate the current angle for the point
+      current_angle = i * angle
+  
+      # Calculate the x and y coordinates of the point based on the angle and radii
+      point_x = center_x + outer_radius * Math.cos(current_angle)
+      point_y = center_y + outer_radius * Math.sin(current_angle)
+  
+      # Calculate the distance from the current pixel to the current point
+      distance = Math.sqrt((x - point_x)**2 + (y - point_y)**2)
+  
+      # Check if the pixel is within the outer radius of the current point
+      if distance < outer_radius
+        # Calculate the inner point for the current angle and radius
+        inner_point_x = center_x + inner_radius * Math.cos(current_angle)
+        inner_point_y = center_y + inner_radius * Math.sin(current_angle)
+  
+        # Calculate the distance from the current pixel to the inner point
+        inner_distance = Math.sqrt((x - inner_point_x)**2 + (y - inner_point_y)**2)
+  
+        # Check if the pixel is outside the inner radius of the current point
+        if inner_distance > inner_radius
+          # Pixel is within the snowflake shape
+          # Return a specific color value (e.g., white)
+          return 255
+        end
+      end
     end
+  
+    # Pixel is outside the snowflake shape
+    # Return a different color value (e.g., black)
+    return 0
   end
   
-  def self.determine_carpet_color(x, y, width, height)
-    # Calculate the size of each carpet tile based on the dimensions
-    tile_size = width / 3
   
+  def self.within_snowflake?(x, y, width, height)
+    # Calculate the center coordinates of the snowflake shape
+    center_x = width / 2
+    center_y = height / 2
+  
+    # Calculate the size of the center segment
+    segment_width = width / 3
+    segment_height = height / 3
+  
+    # Check if the pixel is within the center segment
+    if x >= center_x - segment_width && x < center_x + segment_width &&
+       y >= center_y - segment_height && y < center_y + segment_height
+      return true
+    else
+      return false
+    end
+  end  
+  
+  
+  def self.within_central_triangle?(x, y, width, height)
+    # Check if the current pixel is within the central triangle of the snowflake
+  
+    # Calculate the size and coordinates of the central triangle
+    triangle_size = [width, height].min / 3
+    triangle_x = (width - triangle_size) / 2
+    triangle_y = (height - triangle_size) / 2
+  
+    # Check if the pixel is within the central triangle
+    return (x >= triangle_x && x < triangle_x + triangle_size &&
+            y >= triangle_y && y < triangle_y + triangle_size)
+  end
+  
+
+  def self.determine_carpet_color(x, y, width, height)
     # Check if the current pixel is within the carpet shape
-    if (x / tile_size) % 3 == 1 && (y / tile_size) % 3 == 1
+    if sierpinski_carpet?(x, y, width, height)
       # Pixel is within the carpet shape
       # Return a specific color value (e.g., red)
       return 255
@@ -84,6 +145,25 @@ class BmpCreationService
       return 0
     end
   end
+  
+  def self.sierpinski_carpet?(x, y, width, height)
+    # Base case: check if the current square is the smallest carpet tile
+    return true if width <= 3 && height <= 3
+  
+    # Calculate the size of each carpet tile based on the dimensions
+    tile_width = width / 3
+    tile_height = height / 3
+  
+    # Check if the current pixel is within the center square of the current carpet tile
+    if x % tile_width >= tile_width / 3 && x % tile_width < 2 * tile_width / 3 &&
+       y % tile_height >= tile_height / 3 && y % tile_height < 2 * tile_height / 3
+      return false # Pixel is in the center square, not part of the carpet
+    else
+      # Recursively check the smaller carpet tiles within the current square
+      return sierpinski_carpet?(x % tile_width, y % tile_height, tile_width, tile_height)
+    end
+  end
+  
   
   def self.determine_triangle_color(x, y, width, height)
     # Calculate the center coordinates of the triangle shape
