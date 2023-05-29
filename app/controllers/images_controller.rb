@@ -27,6 +27,7 @@ class ImagesController < ApplicationController
     updated_image = MessageService.embed_message(image, message)
 
     if updated_image.save
+      Message.create(content: message, message_type: :sent, user: current_user)
       render json: updated_image, status: :ok
     else
       render json: { error: updated_image.errors.full_messages }, status: :unprocessable_entity
