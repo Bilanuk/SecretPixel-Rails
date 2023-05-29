@@ -17,6 +17,6 @@ Rails.application.routes.draw do
 
     get "/user-info", to: "users#show" # just for test purpose
     get "/images/:id/read_message", to: "images#read_message"
-    post "/images/generate_dependent_bmp", to: "images#generate_dependent_bmp"
+    post "/images/:id/generate_dependent_bmp", to: "images#generate_dependent_bmp"
   end
 end
