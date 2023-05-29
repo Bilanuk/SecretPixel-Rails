@@ -8,8 +8,10 @@ class BmpCreationService
     header_size = 54
 
     # Get the dimensions of the image
-    width = pixels[18..21].unpack("L>").first
-    height = pixels[22..25].unpack("L>").first
+    width_bytes = pixels[18..21].unpack("C*") # Retrieve the bytes as an array
+    width = width_bytes.reverse.inject { |a, b| (a << 8) + b } # Convert the byte array to an integer
+    height_bytes = pixels[22..25].unpack("C*") # Retrieve the bytes as an array
+    height = height_bytes.reverse.inject { |a, b| (a << 8) + b } # Convert the byte array to an integer
 
     (header_size...pixels.length).each do |index|
       # Calculate the x and y coordinates of the pixel
@@ -111,35 +113,30 @@ class BmpCreationService
   def self.point_in_triangle(x, y, vertex1, vertex2, vertex3)
     # Implement the point-in-triangle algorithm to check if the given coordinates are within the triangle
     # Return true if the point is inside the triangle, false otherwise
-    # Example implementation:
-    # Use barycentric coordinates to determine if the point is inside the triangle
-    # You can find examples and explanations of the algorithm online
-    # Here's a simple implementation assuming counter-clockwise vertex order:
-    # p = [x, y]
-    # v0 = vertex2 - vertex1
-    # v1 = vertex3 - vertex1
-    # v2 = p - vertex1
-    # dot00 = dot_product(v0, v0)
-    # dot01 = dot_product(v0, v1)
-    # dot02 = dot_product(v0, v2)
-    # dot11 = dot_product(v1, v1)
-    # dot12 = dot_product(v1, v2)
-    # inv_denominator = 1 / (dot00 * dot11 - dot01 * dot01)
-    # u = (dot11 * dot02 - dot01 * dot12) * inv_denominator
-    # v = (dot00 * dot12 - dot01 * dot02) * inv_denominator
-    # return (u >= 0) && (v >= 0) && (u + v < 1)
-    # You'll need to implement the dot_product function as well
-  
-    # Replace the implementation above with your own code
+    
+    p = [x, y]
+    v0 = [vertex2[0] - vertex1[0], vertex2[1] - vertex1[1]]
+    v1 = [vertex3[0] - vertex1[0], vertex3[1] - vertex1[1]]
+    v2 = [p[0] - vertex1[0], p[1] - vertex1[1]]
+    
+    dot00 = dot_product(v0, v0)
+    dot01 = dot_product(v0, v1)
+    dot02 = dot_product(v0, v2)
+    dot11 = dot_product(v1, v1)
+    dot12 = dot_product(v1, v2)
+    
+    inv_denominator = 1 / (dot00 * dot11 - dot01 * dot01)
+    u = (dot11 * dot02 - dot01 * dot12) * inv_denominator
+    v = (dot00 * dot12 - dot01 * dot02) * inv_denominator
+    
+    return (u >= 0) && (v >= 0) && (u + v < 1)
   end
   
   def self.dot_product(vector1, vector2)
     # Calculate the dot product of two vectors
     # Return the dot product value
-    # Example implementation:
-    # dot_product = vector1[0] * vector2[0] + vector1[1] * vector2[1]
-    # return dot_product
-  
-    # Replace the implementation above with your own code
+    
+    dot_product = vector1[0] * vector2[0] + vector1[1] * vector2[1]
+    return dot_product
   end  
 end

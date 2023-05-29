@@ -52,7 +52,7 @@ class ImagesController < ApplicationController
     method = params[:method]
     image.setting.update(color: color, method: method)
 
-    updated_image = BmpCreationService.generate_dependent_bmp(image, color, method)
+    updated_image = BmpCreationService.generate_dependent_bmp(image, method, color)
 
     if updated_image.save
       render json: updated_image, status: :ok
