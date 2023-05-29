@@ -32,25 +32,42 @@ class MessageService
   def self.embed_message(image, message)
     # Convert the message to binary string
     binary_message = ascii_to_binary(message)
-
+  
     # Embed the binary message into the image pixels
     pixels = image.file.download
     return nil unless pixels
-
-    pixels.each_byte.with_index do |byte, index|
-      bit = binary_message[index] || '0'
-      bit = bit.to_i
-
-      # Modify the least significant bit of the byte
-      modified_byte = (byte & 0xFE) | bit
-      pixels[index] = modified_byte.chr
+  
+    binary_message_index = 0
+  
+    # Skip the first 54 bytes (header) of the image
+    header_size = 54
+  
+    (header_size...pixels.length).each do |index|
+      break if binary_message_index >= binary_message.length
+  
+      # Convert the byte to binary string
+      byte = pixels[index].ord
+      binary_byte = byte.to_s(2).rjust(8, '0')
+  
+      # Replace the least significant bit of each channel with the corresponding bit from the message
+      modified_byte = binary_byte[0, 7] + binary_message[binary_message_index]
+  
+      # Convert the modified byte back to integer
+      modified_byte_int = modified_byte.to_i(2)
+  
+      # Modify the pixel byte with the modified byte
+      modified_pixel = (byte & 0xFE) | (modified_byte_int & 0x01)
+      pixels[index] = modified_pixel.chr
+  
+      binary_message_index += 1
     end
-
+  
     # Save the modified pixels back to the image
     image.file.attach(io: StringIO.new(pixels), filename: image.file.filename)
-
+  
     image
   end
+  
 
   private
 
