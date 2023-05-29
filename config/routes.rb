@@ -11,12 +11,13 @@ Rails.application.routes.draw do
       }
     end
 
-      resource :setting, only: [:show]
-      resources :messages, only: [:show]
-      resources :images, only: [:show, :index, :create, :update]
+    resource :setting, only: [:show]
+    resources :images, only: [:show, :index, :create, :update]
 
-    get "/user-info", to: "users#show" # just for test purpose
+    get "/user-info", to: "users#show"
     get "/images/:id/read_message", to: "images#read_message"
     post "/images/:id/generate_dependent_bmp", to: "images#generate_dependent_bmp"
+    get "/messages/received_messages", to: "messages#show_received_messages"
+    get "/messages/sent_messages", to: "messages#show_sent_messages"
   end
 end

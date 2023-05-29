@@ -6,6 +6,16 @@ class MessagesController < ApplicationController
     render json: message
   end
 
+  def show_received_messages
+    messages = current_user.received_messages.order(created_at: :desc).limit(3)
+    render json: messages
+  end
+
+  def show_sent_messages
+    messages = current_user.sent_messages.order(created_at: :desc).limit(3)
+    render json: messages
+  end
+
   def create_sent_message
     content = params[:content]
     image = Image.find(params[:image_id])
