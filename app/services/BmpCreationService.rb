@@ -1,5 +1,13 @@
 class BmpCreationService
-  def self.generate_dependent_bmp(image, method, color)
+  def self.generate_dependent_bmp(image, method, color_string)
+    case color_string
+    when "white_black"
+      @color1 = 0
+      @color2 = 255
+    when "black_white"
+      @color1 = 255
+      @color2 = 0
+    end
     # Load the pixels of the original image
     pixels = image.file.download
     return nil unless pixels
@@ -43,7 +51,7 @@ class BmpCreationService
       determine_triangle_color(x, y, width, height)
     else
       # Default color (black) if the method is not recognized
-      0
+      @color1
     end
   end
 
@@ -89,14 +97,14 @@ class BmpCreationService
         if inner_distance > inner_radius
           # Pixel is within the snowflake shape
           # Return a specific color value (e.g., white)
-          return 255
+          return @color2
         end
       end
     end
   
     # Pixel is outside the snowflake shape
     # Return a different color value (e.g., black)
-    return 0
+    return @color1
   end
   
   
@@ -138,11 +146,11 @@ class BmpCreationService
     if sierpinski_carpet?(x, y, width, height)
       # Pixel is within the carpet shape
       # Return a specific color value (e.g., red)
-      return 255
+      return @color2
     else
       # Pixel is outside the carpet shape
       # Return a different color value (e.g., green)
-      return 0
+      return @color1
     end
   end
   
@@ -182,11 +190,11 @@ class BmpCreationService
     if point_in_triangle(x, y, vertex1, vertex2, vertex3)
       # Pixel is within the triangle shape
       # Return a specific color value (e.g., blue)
-      return 255
+      return @color2
     else
       # Pixel is outside the triangle shape
       # Return a different color value (e.g., yellow)
-      return 0
+      return @color1
     end
   end
   

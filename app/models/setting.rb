@@ -3,9 +3,8 @@ class Setting < ApplicationRecord
   belongs_to :image, optional: true
 
   enum color: {
-    red_blue: 'RED_BLUE',
-    green_yellow: 'GREEN_YELLOW',
-    purple_orange: 'PURPLE_ORANGE',
+    white_black: 'WHITE_BLACK',
+    black_white: 'BLACK_WHITE',
     na: 'NA'
 }, _prefix: true
 
